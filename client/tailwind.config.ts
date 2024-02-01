@@ -19,6 +19,7 @@ const config: Config = {
         slategray: "#6d7d93",
         lightgray: "#d6d6d6",
         lightergray: "#a6a6a6",
+        lightestgray: "#ababab",
         gray: "#252532",
         skyblue: "#64cff6"
       },

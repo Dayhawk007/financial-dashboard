@@ -28,7 +28,7 @@ export default function Dashboard() {
 
 
     return(
-        <div className="bg-primary-bg w-screen h-screen flex flex-col py-4 pr-6 pl-4 space-y-4 z-0">
+        <div className="bg-primary-bg w-screen overflow-scroll h-screen flex flex-col py-4 pr-6 pl-4 space-y-4 z-0">
             <Header name={userInfo?.name || "N/A"} setTransactionInputOpen={setIsTransactionInputOpen} />
             <Analytics balance={userInfo?.balance || 0} income={userInfo?.income || 0} expense={userInfo?.expenses || 0} />
             <TransactionInputOverlay isOpen={isTransactionInputOpen} setIsOpen={setIsTransactionInputOpen} />
