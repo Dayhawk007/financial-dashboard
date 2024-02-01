@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+import Chart, { ChartDataset } from 'chart.js/auto';
 
 interface PieChartProps {
   data: { _id: string; total: number }[];
@@ -7,7 +7,7 @@ interface PieChartProps {
 
 const PieChart: React.FC<PieChartProps> = ({ data }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
-  const chartInstanceRef = useRef<Chart | null>(null);
+  const chartInstanceRef = useRef<Chart<'pie', number[], ChartDataset<'pie'> | undefined>>(null);
 
   useEffect(() => {
     if (chartRef.current && data.length > 0) {

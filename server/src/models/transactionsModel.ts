@@ -21,6 +21,10 @@ const TransactionSchema = new mongoose.Schema<ITransactionDocument>({
     type:{
       type: String,
       required: true
+    },
+    paymentMode:{
+      type: String,
+      required: true
     }
 });
 

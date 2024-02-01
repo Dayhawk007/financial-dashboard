@@ -104,3 +104,29 @@ export const getTransactionsGroupedByCategory = async (req: Request, res: Respon
     }
 
 }
+
+export const getTransactionsByInterval = async (req: Request, res: Response) => {
+    
+        const transactionService=new TransactionService();
+    
+        try {
+    
+            const transactions=await transactionService.fetchTransactionGroupedByIntervals("Weekly");
+    
+            if(transactions.length === 0) {
+                console.log("No transactions found");
+                return res.status(HttpCodes.NO_CONTENT).send({
+                    message: "No transactions found"
+                });
+            }
+    
+            return res.status(HttpCodes.OK).send(transactions);
+    
+        } catch (error:any) {
+    
+            return res.status(HttpCodes.INTERNAL_SERVER_ERROR).send({
+                message: error.message
+            });
+    
+        }
+}

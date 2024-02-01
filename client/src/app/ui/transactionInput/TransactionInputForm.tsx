@@ -16,6 +16,8 @@ import {
     DropdownItem,
 } from "@nextui-org/dropdown";
 
+import { createTransaction } from "@/lib/transactionController";
+
 import * as Yup from "yup";
 
 interface TransactionFormProps {
@@ -76,6 +78,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
         try {
             await validationSchema.validate(formData, { abortEarly: false });
             onSubmit(formData);
+            await createTransaction(formData);
             // Reset form after successful submission if needed
             setFormData({
                 amount: 0,
@@ -85,6 +88,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                 type: "",
                 paymentMethod: "",
             });
+            alert("Transaction added successfully");
         } catch (error: any) {
             if (error instanceof Yup.ValidationError) {
                 const errors: Record<string, string> = {};
@@ -111,7 +115,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
             </div>
             <div className="flex flex-row justify-between text-sm items-center divide-x-2  pt-2 pb-6 w-full">
                 <div
-                    className={`${formData.type === "expense" ? "bg-accent" : "bg-slategray"
+                    className={`${formData.type === "expense" ? "bg-accent" : "bg-gray"
                         } w-1/3 text-white text-center rounded-l-lg py-2 px-4 cursor-pointer`}
                     onClick={() => {
                         setFormData((prevData) => ({ ...prevData, type: "expense" }));
@@ -215,7 +219,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                             </DropdownTrigger>
                             <DropdownMenu
                                 aria-label="Static Actions"
-                                onAction={(key) => {
+                                onAction={(key:any) => {
                                     setFormData((prevData) => ({
                                         ...prevData,
                                         category: key.toString(),
@@ -256,7 +260,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({
                             </DropdownTrigger>
                             <DropdownMenu
                                 aria-label="Static Actions"
-                                onAction={(key) => {
+                                onAction={(key:any) => {
                                     setFormData((prevData) => ({
                                         ...prevData,
                                         paymentMethod: key.toString(),

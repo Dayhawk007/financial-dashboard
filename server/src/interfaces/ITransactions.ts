@@ -4,6 +4,7 @@ export interface ITransaction {
     date: Date;
     description?: string;
     type: string;
+    paymentMode: string;
 }
 
 export interface ITransactionDocument extends ITransaction, Document {

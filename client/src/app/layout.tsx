@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DMSans } from "@/config/fonts";
 import "./globals.css";
+import {AppRouterCacheProvider} from "@mui/material-nextjs/v13-appRouter"
 
 
 export const metadata: Metadata = {
@@ -16,9 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${DMSans.className} `}>
-        
-          {children}
-        
+        <AppRouterCacheProvider>
+            {children}
+          </AppRouterCacheProvider>
         </body>
     </html>
   );

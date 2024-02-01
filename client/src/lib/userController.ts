@@ -1,6 +1,6 @@
 export async function getUserInfo() {
     try{
-        const user=await fetch(`http://localhost:4000/api/users/default-user`,{
+        const user=await fetch(`${process.env.BACKEND_URL}/users/default-user`,{
             method:'GET',
             headers:{
                 'Content-Type':'application/json'

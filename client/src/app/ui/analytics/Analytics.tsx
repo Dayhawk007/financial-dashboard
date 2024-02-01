@@ -5,7 +5,9 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-o
 import Card from "../card/Card";
 import { useEffect, useState } from "react";
 import PieChart from "./AnalyticsPieChart";
-import { getExpensesByCategory } from "@/lib/transactionController";
+import { getExpensesByCategory, getTransactionsPaginated } from "@/lib/transactionController";
+import BarGraph from "./AnalyticsBarGraph";
+import TransactionHistory from "../transactionHistory/TransactionHistory";
 
 type Props = {
     balance: number,
@@ -21,12 +23,23 @@ const Analytics = (props: Props) => {
 
     const [groupedExpenses, setGroupedExpenses] = useState<any[]>([]);
 
+    const [transactions, setTransactions] = useState<any[]>([]);
+
+
     useEffect(() => {
         const getExpenses = async () => {
             const expenses = await getExpensesByCategory();
             setGroupedExpenses(expenses);
         }
         getExpenses();
+    }, [])
+
+    useEffect(() => {
+        const getTransactions = async () => {
+            const transactions = await getTransactionsPaginated({page:1, limit:10});
+            setTransactions(transactions.paginatedData);
+        }
+        getTransactions();
     }, [])
     return (
         <>
@@ -38,28 +51,10 @@ const Analytics = (props: Props) => {
                             <Card title="Income" information={`₹ ${props.income}`} additionalInformation="+ 2.5% " />
                             <Card title="Expense" information={`₹ ${props.expense}`} additionalInformation="+ 2.5% " />
                         </div>
-                        <div className="flex flex-col w-full h-72 bg-white rounded-xl">
-                            {/* Bar Graph for Analytics */}
-                        </div>
-                        <div className="bg-white w-full py-4 px-6 rounded-lg">
-                            <h3 className="text-xl font-semibold text-dimgray">Recent Transactions</h3>
-
-                            <table className="w-full h-72">
-                                <thead className="text-dimgray text-center font-semibold">
-                                    <tr>
-                                        <th className="py-4 px-6">Transaction</th>
-                                        <th className="py-4 px-6">Amount</th>
-                                        <th className="py-4 px-6">Date</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
+                        <TransactionHistory transactions={transactions} />
                     </div>
                 </div>
                 <div className="w-[25%] flex flex-col space-y-4 py-2 items-center">
-                    <div className="w-full h-36 bg-white rounded-xl">
-                        {/* Daily Goals*/}
-                    </div>
                     <div className="w-full bg-white rounded-xl flex flex-col space-y-4 items-center p-6">
                         <div className="flex flex-row justify-between w-full items-center">
                             <h3 className="text-lg font-semibold text-dimgray">Analytics</h3>
@@ -82,6 +77,100 @@ const Analytics = (props: Props) => {
                             </Dropdown>
                         </div>
                         <PieChart data={groupedExpenses} />
+                        <BarGraph data={[
+                                [
+                                    {
+                                        "total": 25000,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 4,
+                                        "week": 16,
+                                        "income": 25000,
+                                        "expense": 0
+                                    },
+                                    {
+                                        "total": 18000,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 4,
+                                        "week": 14,
+                                        "income": 0,
+                                        "expense": 18000
+                                    },
+                                    {
+                                        "total": 8000.5,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 3,
+                                        "week": 11,
+                                        "income": 0,
+                                        "expense": 8000.5
+                                    },
+                                    {
+                                        "total": 5000,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 3,
+                                        "week": 10,
+                                        "income": 0,
+                                        "expense": 0
+                                    },
+                                    {
+                                        "total": 1500.25,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 3,
+                                        "week": 9,
+                                        "income": 0,
+                                        "expense": 1500.25
+                                    },
+                                    {
+                                        "total": 30000,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 2,
+                                        "week": 8,
+                                        "income": 30000,
+                                        "expense": 0
+                                    },
+                                    {
+                                        "total": 1250.75,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 2,
+                                        "week": 6,
+                                        "income": 0,
+                                        "expense": 1250.75
+                                    },
+                                    {
+                                        "total": 800,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 2,
+                                        "week": 6,
+                                        "income": 0,
+                                        "expense": 800
+                                    },
+                                    {
+                                        "total": 1500,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 1,
+                                        "week": 5,
+                                        "income": 0,
+                                        "expense": 1500
+                                    },
+                                    {
+                                        "total": 40000,
+                                        "count": 1,
+                                        "year": 2024,
+                                        "month": 1,
+                                        "week": 3,
+                                        "income": 40000,
+                                        "expense": 0
+                                    }
+                                ]
+                            ]} />
                     </div>
                 </div>
             </div>
