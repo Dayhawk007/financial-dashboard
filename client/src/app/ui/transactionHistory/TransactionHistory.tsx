@@ -11,7 +11,7 @@ type Props = {
 }
 
 const TransactionHistory = (props: Props) => {
-    const [sortBy, setSortBy] = useState<String>("Sort By");
+    const [sortBy, setSortBy] = useState<String>("");
   return (
     <div className="w-full flex flex-col p-6 rounded-lg bg-white">
         <div className="flex flex-row pt-2 pb-4 w-full justify-between px-2">
@@ -21,7 +21,7 @@ const TransactionHistory = (props: Props) => {
                 <Dropdown className="bg-white text-secondary rounded-lg text-sm">
                     <DropdownTrigger>
                         <div className="flex flex-row items-center">
-                            <label className="text-dimgray text-sm mr-3"> Sort By: {sortBy}</label>
+                            <label className="text-dimgray text-sm mr-3"> Sort By : {sortBy}</label>
                         </div>
                     </DropdownTrigger>
                     <DropdownMenu aria-label="Static Actions" onAction={(key:any)=>{
