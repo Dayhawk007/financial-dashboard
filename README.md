@@ -1,4 +1,4 @@
-# Kitchen spurs assessment (Financial Dashboard)
+# Financial Dashboard
 
 ## To run the application, install the node modules with these commands-
 
